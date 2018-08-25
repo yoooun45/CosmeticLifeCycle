@@ -18,7 +18,10 @@
         </activity>
         <activity
             android:name=".GetInform"
-            android:label="@string/title_activity_get_inform"></activity>
+            android:label="@string/title_activity_get_inform" />
+        <activity
+            android:name=".MainList_Activity"
+            android:label="@string/title_activity_main_list_"></activity>
     </application>
 
 </manifest>

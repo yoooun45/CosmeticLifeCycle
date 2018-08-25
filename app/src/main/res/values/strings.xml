@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">CosmeticLifeCycle</string>
     <string name="title_activity_get_inform">GetInform</string>
+    <string name="title_activity_main_list_">MainList_Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

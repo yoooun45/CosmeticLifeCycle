@@ -1,9 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="60dp"
+    android:orientation="vertical"
     tools:context=".GetInform">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp"
+            android:text="나이"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/join_age"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="세"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="7dp"
+            android:text="성별"
+            android:textSize="12dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/join_woman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.80"
+                android:scaleY="0.80"
+                android:text="여자"
+                android:textColor="#9e9e9e"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/join_man"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.80"
+                android:scaleY="0.80"
+                android:text="남자"
+                android:textColor="#9e9e9e"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:text="피부타입"
+            android:textSize="12dp" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp">
+
+            <TableRow>
+
+                <CheckBox
+                    android:id="@+id/join_skintype1"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="지성"
+                    android:textSize="12dp" />
+
+                <CheckBox
+                    android:id="@+id/join_skintype2"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="건성"
+                    android:textSize="12dp" />
+
+                <CheckBox
+                    android:id="@+id/join_skintype3"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="복합성"
+                    android:textSize="12dp" />
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:text="관심분야"
+            android:textSize="12dp" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp">
+
+            <TableRow>
+
+                <CheckBox
+                    android:id="@+id/join_interest1"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="아토피"
+                    android:textSize="12dp" />
+
+                <CheckBox
+                    android:id="@+id/join_interest2"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="여드름"
+                    android:textSize="12dp" />
+
+                <CheckBox
+                    android:id="@+id/join_interest3"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="민감성"
+                    android:textSize="12dp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dp">
+
+                <CheckBox
+                    android:id="@+id/join_interest4"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="홍조"
+                    android:textSize="12dp" />
+
+                <CheckBox
+                    android:id="@+id/join_interest5"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="각질"
+                    android:textSize="12dp" />
+
+                <CheckBox
+                    android:id="@+id/join_interest6"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="모공"
+                    android:textSize="12dp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dp">
+
+                <CheckBox
+                    android:id="@+id/join_interest7"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/check_button"
+                    android:button="@drawable/check_button"
+                    android:gravity="center"
+                    android:text="탄력"
+                    android:textSize="12dp" />
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/get_finish_button"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/basic_button"
+        android:text="저장"
+        android:textSize="12dp" />
+
+</LinearLayout>
