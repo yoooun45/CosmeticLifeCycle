@@ -1,7 +1,9 @@
 package leesimjeonsim.user.cosmeticlifecycle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,11 +25,14 @@ import java.util.List;
 public class ItemlifeFragment extends Fragment {
 
     // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_COLUMN_COUNT = "column_count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private RecyclerView mRecyclerView;
+    private FloatingActionButton fab;
 
+    static final int[] a = { 100,200 };
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -49,7 +54,6 @@ public class ItemlifeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -61,16 +65,21 @@ public class ItemlifeFragment extends Fragment {
         //프래그먼트의 화면을 만듬
         View view = inflater.inflate(R.layout.fragment_itemlife, container, false);
 
+        fab = view.findViewById(R.id.fab);
+
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
+        Context context = view.getContext();
+        mRecyclerView = view.findViewById(R.id.list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        mRecyclerView.setAdapter(new ItemRecyclerViewAdapter(ItemLifeData.ITEMS, mListener));
+        fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),CsmtSearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
-            RecyclerView recyclerView = (RecyclerView) view;
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            //DummyContent는 우리가 구현 해야하는 정보부분이데 우선 기본 파일 가져옴
-            recyclerView.setAdapter(new ItemRecyclerViewAdapter(ItemLifeData.ITEMS, mListener));
-        }
         return view;
     }
 

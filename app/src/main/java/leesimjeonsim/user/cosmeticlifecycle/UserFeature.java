@@ -22,4 +22,9 @@ public class UserFeature {
     public void setd(Boolean d) {
         Ds = d;
     }
+
+    public void calfinalFrature(){
+
+        return ;
+    }
 }
