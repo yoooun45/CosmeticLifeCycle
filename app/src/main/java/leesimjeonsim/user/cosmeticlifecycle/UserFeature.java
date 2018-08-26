@@ -68,43 +68,43 @@ public class UserFeature {
         }
     }
 
-    public void setOily(Boolean oily) {
+    public void set_Oily(Boolean oily) {
         Oily = oily;
     }
 
-    public void setDry(Boolean dry) {
+    public void set_Dry(Boolean dry) {
         Dry = dry;
     }
 
-    public void setComplexity(Boolean complexity) {
+    public void set_Complexity(Boolean complexity) {
         Complexity = complexity;
     }
 
-    public void setAtopy(Boolean atopy) {
+    public void set_Atopy(Boolean atopy) {
         Atopy = atopy;
     }
 
-    public void setAcne(Boolean acne) {
+    public void set_Acne(Boolean acne) {
         Acne = acne;
     }
 
-    public void setSensitivity(Boolean sensitivity) {
+    public void set_Sensitivity(Boolean sensitivity) {
         Sensitivity = sensitivity;
     }
 
-    public void setBlush(Boolean blush) {
+    public void set_Blush(Boolean blush) {
         Blush = blush;
     }
 
-    public void setDead(Boolean dead) {
+    public void set_Dead(Boolean dead) {
         Dead = dead;
     }
 
-    public void setPore(Boolean pore) {
+    public void set_Pore(Boolean pore) {
         Pore = pore;
     }
 
-    public void setElasticity(Boolean elasticity) {
+    public void set_Elasticity(Boolean elasticity) {
         Elasticity = elasticity;
     }
 

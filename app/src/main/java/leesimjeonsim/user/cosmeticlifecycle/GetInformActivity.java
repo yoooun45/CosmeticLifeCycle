@@ -121,42 +121,41 @@ public class GetInformActivity extends Activity implements View.OnClickListener 
         }
 
         else if (i == R.id.join_skintype1) {
-            mUserfeature.setOily(true);
+            mUserfeature.set_Oily(true);
         }
         else if (i == R.id.join_skintype2) {
-            mUserfeature.setDry(true);
+            mUserfeature.set_Dry(true);
         }
         else if (i == R.id.join_skintype3) {
-            mUserfeature.setComplexity(true);
+            mUserfeature.set_Complexity(true);
         }
 
         else if (i == R.id.join_interest1) {
-            mUserfeature.setAtopy(true);
+            mUserfeature.set_Atopy(true);
         }
         else if (i == R.id.join_interest2) {
-            mUserfeature.setAcne(true);
+            mUserfeature.set_Acne(true);
         }
         else if (i == R.id.join_interest3) {
-            mUserfeature.setSensitivity(true);
+            mUserfeature.set_Sensitivity(true);
         }
         else if (i == R.id.join_interest4) {
-            mUserfeature.setBlush(true);
+            mUserfeature.set_Blush(true);
         }
         else if (i == R.id.join_interest5) {
-            mUserfeature.setDead(true);
+            mUserfeature.set_Dead(true);
         }
         else if (i == R.id.join_interest6) {
-            mUserfeature.setPore(true);
+            mUserfeature.set_Pore(true);
         }
         else if (i == R.id.join_interest7) {
-            mUserfeature.setElasticity(true);
+            mUserfeature.set_Elasticity(true);
         }
 
         else if (i == R.id.get_finish_button){
             setUserdata();
             Intent intent = new Intent(getBaseContext(),MainList_Activity.class);
             startActivity(intent);
-            finish();
         }
     }
 }
