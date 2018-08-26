@@ -103,4 +103,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void addButtonClicked(View v) {
+        Intent intent = new Intent(getBaseContext(), CsmtAddActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
 }
