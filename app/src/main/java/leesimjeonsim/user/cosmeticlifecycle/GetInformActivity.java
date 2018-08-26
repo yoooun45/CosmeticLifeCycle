@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,9 +25,9 @@ public class GetInformActivity extends Activity implements View.OnClickListener 
     private Button mWomanButton;
     private Button mManButton;
 
-    private Button mOilyButton;
-    private Button mDryButton;
-    private Button mComplexityButton;
+    private CheckBox mOilyButton;
+    private CheckBox mDryButton;
+    private CheckBox mComplexityButton;
 
     private Button mAtopyButton;
     private Button mAcneButton;
@@ -40,13 +41,12 @@ public class GetInformActivity extends Activity implements View.OnClickListener 
 
     private Button mFinishButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_inform);
 
-        MainActivity LA = (MainActivity)MainActivity._MainActivity;
+        MainActivity LA = (MainActivity) MainActivity._MainActivity;
         LA.finish();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -96,10 +96,9 @@ public class GetInformActivity extends Activity implements View.OnClickListener 
         mElasticityButton.setOnClickListener(this);
 
         mFinishButton.setOnClickListener(this);
-
     }
 
-    private  void setUserdata() {
+    private void setUserdata() {
         FirebaseUser user = mAuth.getCurrentUser();
         Log.d("TAG", user.getUid());
         mUserdata.setAge(Integer.parseInt(mAgeText.getText().toString()));
@@ -115,46 +114,61 @@ public class GetInformActivity extends Activity implements View.OnClickListener 
         int i = v.getId();
         if (i == R.id.join_woman) {
             mUserdata.setSex(true);
-        }
-        else if (i == R.id.join_man) {
+        } else if (i == R.id.join_man) {
             mUserdata.setSex(false);
-        }
+        } else if (i == R.id.join_skintype1) {
 
-        else if (i == R.id.join_skintype1) {
-            mUserfeature.set_Oily(true);
-        }
-        else if (i == R.id.join_skintype2) {
-            mUserfeature.set_Dry(true);
-        }
-        else if (i == R.id.join_skintype3) {
-            mUserfeature.set_Complexity(true);
-        }
+            if (((CheckBox) v).isChecked()) {
+                mUserfeature.set_Oily(true);
+                mDryButton.setChecked(false);
+                mUserfeature.set_Dry(false);
+                mComplexityButton.setChecked(false);
+                mUserfeature.set_Complexity(false);
+            } else {
+                mUserfeature.set_Oily(false);
+            }
 
-        else if (i == R.id.join_interest1) {
+        } else if (i == R.id.join_skintype2) {
+
+            if (((CheckBox) v).isChecked()) {
+                mUserfeature.set_Dry(true);
+                mOilyButton.setChecked(false);
+                mUserfeature.set_Oily(false);
+                mComplexityButton.setChecked(false);
+                mUserfeature.set_Complexity(false);
+            } else {
+                mUserfeature.set_Dry(false);
+            }
+
+        } else if (i == R.id.join_skintype3) {
+
+            if (((CheckBox) v).isChecked()) {
+                mUserfeature.set_Complexity(true);
+                mOilyButton.setChecked(false);
+                mUserfeature.set_Oily(false);
+                mDryButton.setChecked(false);
+                mUserfeature.set_Dry(false);
+            } else {
+                mUserfeature.set_Complexity(false);
+            }
+
+        } else if (i == R.id.join_interest1) {
             mUserfeature.set_Atopy(true);
-        }
-        else if (i == R.id.join_interest2) {
+        } else if (i == R.id.join_interest2) {
             mUserfeature.set_Acne(true);
-        }
-        else if (i == R.id.join_interest3) {
+        } else if (i == R.id.join_interest3) {
             mUserfeature.set_Sensitivity(true);
-        }
-        else if (i == R.id.join_interest4) {
+        } else if (i == R.id.join_interest4) {
             mUserfeature.set_Blush(true);
-        }
-        else if (i == R.id.join_interest5) {
+        } else if (i == R.id.join_interest5) {
             mUserfeature.set_Dead(true);
-        }
-        else if (i == R.id.join_interest6) {
+        } else if (i == R.id.join_interest6) {
             mUserfeature.set_Pore(true);
-        }
-        else if (i == R.id.join_interest7) {
+        } else if (i == R.id.join_interest7) {
             mUserfeature.set_Elasticity(true);
-        }
-
-        else if (i == R.id.get_finish_button){
+        } else if (i == R.id.get_finish_button) {
             setUserdata();
-            Intent intent = new Intent(getBaseContext(),MainList_Activity.class);
+            Intent intent = new Intent(getBaseContext(), MainList_Activity.class);
             startActivity(intent);
             finish();
         }
