@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /*
     private void createAccount(String email, String password) {
         Log.d("TAG", "createAccount:" + email);
 
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
 
     }
-
+*/
     private void loginAccount(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -114,23 +115,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d("TAG", "onClick success");
         if (i == R.id.join_button) {
             Log.d("TAG", "createID button success");
-            createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
-            Intent intent = new Intent(getBaseContext(),GetInformActivity.class);
+           // createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+            Intent intent = new Intent(getBaseContext(),JoinActivity.class);
             startActivity(intent);
             finish();
-
         }
         else if (i == R.id.login_button){
             Log.d("TAG", "login button success");
             loginAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
         }
+        else if (i == R.id.dd) {
+            Log.d("TAG", "dd button success");
+            Intent intent = new Intent(getBaseContext(),CsmtAddActivity.class);
+            startActivity(intent);
+        }
     }
-
-    public void addButtonClicked(View v) {
-        Intent intent = new Intent(getBaseContext(), CsmtAddActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
 
 }

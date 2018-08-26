@@ -120,6 +120,5 @@
         android:id="@+id/dd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="addButtonClicked"
         android:text="추가화면으로"/>
 </LinearLayout>
