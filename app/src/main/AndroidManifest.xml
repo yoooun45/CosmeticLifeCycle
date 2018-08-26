@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GetInform"
+            android:name=".GetInformActivity"
             android:label="@string/title_activity_get_inform" />
         <activity
             android:name=".MainList_Activity"

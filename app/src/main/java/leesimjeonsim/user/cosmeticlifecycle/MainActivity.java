@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (i == R.id.join_button) {
             Log.d("TAG", "createID button success");
             createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
-            Intent intent = new Intent(getBaseContext(),GetInform.class);
+            Intent intent = new Intent(getBaseContext(),GetInformActivity.class);
             startActivity(intent);
 
         }
