@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/rcmdGray"
+            android:background="@color/colorNew"
             android:orientation="horizontal">
 
             <TextView
@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:text="VDL 페스티벌 립스틱" />
 
             <TextView
@@ -37,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:text="D - 7" />
 

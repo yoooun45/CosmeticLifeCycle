@@ -22,6 +22,7 @@ public class JoinActivity extends AppCompatActivity {
 
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,6 @@ public class JoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_join);
 
         mAuth = FirebaseAuth.getInstance();
-
         editTextEmail = (EditText)findViewById(R.id.join_email);
         editTextPassword = (EditText)findViewById(R.id.join_pw);
 
@@ -46,6 +46,7 @@ public class JoinActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void createAccount(String email, String password) {
         Log.d("TAG", "createAccount:" + email);
