@@ -4,20 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="60dp"
+    android:layout_marginTop="90dp"
     android:orientation="vertical"
     tools:context=".GetInformActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="40dp"
             android:text="나이"
             android:textSize="12dp" />
@@ -46,7 +44,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="32dp"
             android:layout_marginTop="7dp"
             android:text="성별"
@@ -93,7 +91,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
             android:text="피부타입"
@@ -152,7 +150,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
             android:text="관심분야"
@@ -191,7 +189,7 @@
                     android:id="@+id/join_interest3"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="7dp"
+                    android:layout_marginRight="30dp"
                     android:background="@drawable/check_button"
                     android:button="@drawable/check_button"
                     android:gravity="center"
@@ -227,7 +225,7 @@
                     android:id="@+id/join_interest6"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="7dp"
+                    android:layout_marginRight="30dp"
                     android:background="@drawable/check_button"
                     android:button="@drawable/check_button"
                     android:gravity="center"
@@ -256,9 +254,9 @@
         android:id="@+id/get_finish_button"
         android:layout_width="match_parent"
         android:layout_height="37dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/basic_button"
         android:text="저장"
         android:textSize="12dp" />

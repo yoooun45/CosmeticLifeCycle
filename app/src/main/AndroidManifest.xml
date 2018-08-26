@@ -22,8 +22,8 @@
         <activity
             android:name=".MainList_Activity"
             android:label="@string/title_activity_main_list_" />
-        <activity android:name=".CsmtSearchActivity"></activity>
-        <activity android:name=".CsmtAddActivity"></activity>
+        <activity android:name=".CsmtAddActivity" />
+        <activity android:name=".JoinActivity"></activity>
     </application>
 
 </manifest>

@@ -3,18 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="80dp"
+    android:layout_marginTop="90dp"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/text_logo"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:src="@drawable/blue" />
 
     <Button
@@ -38,13 +35,11 @@
         android:stretchColumns="0,1,2">
 
         <TableRow>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:layout_span="0"
                 android:background="@color/gray" />
 
             <TextView
@@ -116,10 +111,4 @@
         android:textColor="@color/white"
         android:textSize="12dp" />
 
-    <Button
-        android:id="@+id/dd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="addButtonClicked"
-        android:text="추가화면으로"/>
 </LinearLayout>
