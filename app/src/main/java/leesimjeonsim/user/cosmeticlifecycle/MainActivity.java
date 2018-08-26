@@ -82,6 +82,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private void loginAccount(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("TAG", "signInWithEmail:success");
+                            Intent intent = new Intent(getBaseContext(),MainList_Activity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("TAG", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
     private void signOut() {
         mAuth.signOut();
     }
@@ -95,11 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
             Intent intent = new Intent(getBaseContext(),GetInformActivity.class);
             startActivity(intent);
+            finish();
 
         }
         else if (i == R.id.login_button){
             Log.d("TAG", "login button success");
-
+            loginAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
         }
     }
 

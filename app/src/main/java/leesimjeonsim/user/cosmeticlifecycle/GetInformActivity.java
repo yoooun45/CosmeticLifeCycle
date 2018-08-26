@@ -156,6 +156,7 @@ public class GetInformActivity extends Activity implements View.OnClickListener 
             setUserdata();
             Intent intent = new Intent(getBaseContext(),MainList_Activity.class);
             startActivity(intent);
+            finish();
         }
     }
 }
