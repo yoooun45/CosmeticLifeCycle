@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         else if (i == R.id.login_button){
+            Log.d("TAG", "login button success");
 
         }
     }

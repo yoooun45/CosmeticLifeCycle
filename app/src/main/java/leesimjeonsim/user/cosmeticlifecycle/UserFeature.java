@@ -15,37 +15,49 @@ public class UserFeature {
 
     public float[] calFinalFeature(float[][] data) {
         float[] result = new float[]{0, 0, 0, 0, 0, 0};
+        float count=0;
         if (Oily) {
             addFeature(data, result, 0);
+            ++count;
         }
         if (Dry) {
             addFeature(data, result, 1);
+            ++count;
         }
         if (Complexity) {
             addFeature(data, result, 2);
+            ++count;
         }
 
         if (Atopy) {
             addFeature(data, result, 3);
+            ++count;
         }
         if (Acne) {
             addFeature(data, result, 4);
+            ++count;
         }
         if (Sensitivity) {
             addFeature(data, result, 5);
+            ++count;
         }
         if (Blush) {
             addFeature(data, result, 6);
+            ++count;
         }
         if (Dead) {
             addFeature(data, result, 7);
+            ++count;
         }
         if (Pore) {
             addFeature(data, result, 8);
+            ++count;
         }
         if (Elasticity) {
             addFeature(data, result, 9);
+            ++count;
         }
+        for(int i = 0;i<6;i++){result[i]=result[i]/count;}
         return result;
     }
 

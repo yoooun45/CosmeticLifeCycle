@@ -40,17 +40,6 @@ public class GetInformActivity extends Activity implements View.OnClickListener 
 
     private Button mFinishButton;
 
-    private double[][] SkintypeWeight = {
-            {0.8,0.1,0.6,0.8,0.5,0.4},//Oil
-            {1,0.55,0.6,0.8,0.7,0.6},//Dry
-            {0.6,0.6,0.6,0.6,0.6,0.5},//Complexity
-            {0.8,0.2,0.6,0.8,0.7,1},//Atopy
-            {0.8,0.2,0.6,0.8,0.7,0.8},//Acne
-            {0.8,0.1,0.6,0.8,0.7,1},//Sensitivity
-            {0.8,0.5,0.6,0.8,0.7,0.7},//Blush
-            {0.9,0.8,0.6,0.8,0.7,0.4},//Dead
-            {0.8,0.7,0.6,0.8,0.7,0.4},//Pore
-            {0.7,0.8,0.6,0.8,0.7,0.4}};//Elasticity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
