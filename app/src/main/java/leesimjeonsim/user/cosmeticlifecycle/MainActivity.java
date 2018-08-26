@@ -124,11 +124,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("TAG", "login button success");
             loginAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
         }
-        else if (i == R.id.dd) {
-            Log.d("TAG", "dd button success");
-            Intent intent = new Intent(getBaseContext(),CsmtAddActivity.class);
-            startActivity(intent);
-        }
     }
 
 }

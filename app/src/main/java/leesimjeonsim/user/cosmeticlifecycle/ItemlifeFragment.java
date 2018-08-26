@@ -75,7 +75,7 @@ public class ItemlifeFragment extends Fragment {
         fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),CsmtSearchActivity.class);
+                Intent intent = new Intent(getActivity(),CsmtAddActivity.class);
                 startActivity(intent);
             }
         });
