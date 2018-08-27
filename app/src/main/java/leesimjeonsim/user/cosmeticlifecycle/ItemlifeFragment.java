@@ -14,9 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import leesimjeonsim.user.cosmeticlifecycle.ItemLifeData;
-import leesimjeonsim.user.cosmeticlifecycle.ItemLifeData.LifeItem;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

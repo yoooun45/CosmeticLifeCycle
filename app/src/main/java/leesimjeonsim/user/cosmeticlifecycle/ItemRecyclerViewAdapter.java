@@ -1,20 +1,23 @@
 package leesimjeonsim.user.cosmeticlifecycle;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import leesimjeonsim.user.cosmeticlifecycle.ItemLifeData.LifeItem;
+
+import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<LifeItem> mValues;
+    private final List<ItemLifeData> mValues;
     private final ItemlifeFragment.OnListFragmentInteractionListener mListener;
 
-    public ItemRecyclerViewAdapter(List<LifeItem> items, ItemlifeFragment.OnListFragmentInteractionListener listener) {
+    public ItemRecyclerViewAdapter(List<ItemLifeData> items, ItemlifeFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
         Log.d("TAG","itema");
@@ -34,11 +37,11 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     public void onBindViewHolder(final ViewHolder holder, int position) {
         //정보를 부착.
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
         holder.mTitleView.setText(mValues.get(position).title);
         holder.mContentView.setText(mValues.get(position).content);
         holder.mDetailsView.setText(mValues.get(position).details);
         holder.mD_dayView.setText(mValues.get(position).d_day);
+        Glide.with(holder.mImageView.getContext()).load(mValues.get(position).id).into(holder.mImageView);
 
         Log.d("TAG","itemc");
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -60,17 +63,17 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        public final ImageView mImageView;
         public final TextView mTitleView;
         public final TextView mContentView;
         public final TextView mDetailsView;
         public final TextView mD_dayView;
-        public LifeItem mItem;
+        public ItemLifeData mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
+            mImageView = (ImageView) view.findViewById(R.id.image);
             mTitleView = (TextView) view.findViewById(R.id.title);
             mContentView = (TextView) view.findViewById(R.id.content);
             mDetailsView = (TextView) view.findViewById(R.id.details);
