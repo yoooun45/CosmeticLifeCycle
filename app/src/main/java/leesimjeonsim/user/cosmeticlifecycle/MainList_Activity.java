@@ -116,7 +116,7 @@ public class MainList_Activity extends AppCompatActivity {
                     return ItemlifeFragment.newInstance(Num);
                 }
                 case 1: {
-                    return rcmdFragmend.newInstance("dd","ss");
+                    return rcmdFragmend.newInstance("dd","ss");//
                 }
                 case 2: {
                     return ItemlifeFragment.newInstance(Num);

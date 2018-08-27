@@ -65,13 +65,14 @@ public class ItemlifeFragment extends Fragment {
         //프래그먼트의 화면을 만듬
         View view = inflater.inflate(R.layout.fragment_itemlife, container, false);
 
-        fab = view.findViewById(R.id.fab);
-
         // Set the adapter
         Context context = view.getContext();
         mRecyclerView = view.findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.setAdapter(new ItemRecyclerViewAdapter(ItemLifeData.ITEMS, mListener));
+
+        //Set floatbutton
+        fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
             @Override
             public void onClick(View v) {
