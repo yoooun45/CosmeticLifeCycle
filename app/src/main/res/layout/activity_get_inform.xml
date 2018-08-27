@@ -105,7 +105,7 @@
             <TableRow>
 
                 <CheckBox
-                    android:id="@+id/join_skintype1"
+                    android:id="@+id/oily_skin"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="7dp"
@@ -116,7 +116,7 @@
                     android:textSize="12dp" />
 
                 <CheckBox
-                    android:id="@+id/join_skintype2"
+                    android:id="@+id/dry_skin"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="7dp"
@@ -127,7 +127,7 @@
                     android:textSize="12dp" />
 
                 <CheckBox
-                    android:id="@+id/join_skintype3"
+                    android:id="@+id/complexity_skin"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="7dp"
@@ -164,7 +164,7 @@
             <TableRow>
 
                 <CheckBox
-                    android:id="@+id/join_interest1"
+                    android:id="@+id/atopy_interest"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="7dp"
@@ -175,7 +175,7 @@
                     android:textSize="12dp" />
 
                 <CheckBox
-                    android:id="@+id/join_interest2"
+                    android:id="@+id/acne_interest"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="7dp"
@@ -186,7 +186,7 @@
                     android:textSize="12dp" />
 
                 <CheckBox
-                    android:id="@+id/join_interest3"
+                    android:id="@+id/sensitivity_interest"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="30dp"
@@ -200,7 +200,7 @@
             <TableRow android:layout_marginTop="5dp">
 
                 <CheckBox
-                    android:id="@+id/join_interest4"
+                    android:id="@+id/blush_interest"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="7dp"
@@ -211,7 +211,7 @@
                     android:textSize="12dp" />
 
                 <CheckBox
-                    android:id="@+id/join_interest5"
+                    android:id="@+id/dead_interest"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="7dp"
@@ -222,7 +222,7 @@
                     android:textSize="12dp" />
 
                 <CheckBox
-                    android:id="@+id/join_interest6"
+                    android:id="@+id/pore_interest"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="30dp"
@@ -236,7 +236,7 @@
             <TableRow android:layout_marginTop="5dp">
 
                 <CheckBox
-                    android:id="@+id/join_interest7"
+                    android:id="@+id/elasticity_interest"
                     android:layout_width="70dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="7dp"
