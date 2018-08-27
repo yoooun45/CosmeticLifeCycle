@@ -3,17 +3,29 @@ package leesimjeonsim.user.cosmeticlifecycle;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import leesimjeonsim.user.cosmeticlifecycle.ItemLifeData;
-import leesimjeonsim.user.cosmeticlifecycle.ItemLifeData.LifeItem;
+//import leesimjeonsim.user.cosmeticlifecycle.ItemLifeData;
+//import leesimjeonsim.user.cosmeticlifecycle.ItemLifeData.LifeItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,8 +43,14 @@ public class ItemlifeFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
+    public  List<ItemLifeData> ITEMS = new ArrayList<>();
+    private FirebaseDatabase database;
+
 
     static final int[] a = { 100,200 };
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -54,6 +72,7 @@ public class ItemlifeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("fragment", "onCreate");
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -71,15 +90,40 @@ public class ItemlifeFragment extends Fragment {
         Context context = view.getContext();
         mRecyclerView = view.findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.setAdapter(new ItemRecyclerViewAdapter(ItemLifeData.ITEMS, mListener));
+        final ItemRecyclerViewAdapter itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(ITEMS, mListener);
+        mRecyclerView.setAdapter(itemRecyclerViewAdapter);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        database.getReference().child("users").child(user.getUid()).child("list").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ITEMS.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    ItemLifeData lifeData = snapshot.getValue(ItemLifeData.class);
+                    ITEMS.add(lifeData);
+                }
+                itemRecyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         fab.setOnClickListener(new FloatingActionButton.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),CsmtAddActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
-
+        Log.d("fragment", "onCreateView");
         return view;
     }
 
@@ -109,6 +153,34 @@ public class ItemlifeFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         //리스트를 선택했을때 일을 여기서 처리할수 있도록 함
         // TODO: Update argument type and name
-        void onListFragmentInteraction(LifeItem item);
+        void onListFragmentInteraction(ItemLifeData item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("fragment", "onActivityResult");
+        System.out.println("fragment" + data.getStringExtra("name"));
+
+        ItemLifeData lifeItem = new ItemLifeData();
+        lifeItem.id = data.getStringExtra("image");
+        lifeItem.title = data.getStringExtra("name");
+        String brand = data.getStringExtra("brand");
+        String category = data.getStringExtra("category");
+        lifeItem.content = brand + "-" + category;
+        String open = data.getStringExtra("open");
+        String end = data.getStringExtra("end");
+        lifeItem.details = open + "~" + end;
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        mDatabase.child("users").child(user.getUid()).child("list").push().setValue(lifeItem);
+
+    //    ITEMS.add(lifeItem);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 }
