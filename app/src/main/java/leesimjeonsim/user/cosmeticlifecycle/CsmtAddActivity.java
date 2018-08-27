@@ -36,15 +36,18 @@ public class CsmtAddActivity extends Activity {
     final int OPEN_DATE = 1;
     final int MAKE_DATE = 2;
     final int END_DATE = 3;
+    int CHECK_BUTTON = 0;   // 1 : 제품입력, 2 : 개봉일자 입력, 3 : 제조일자 입력, 4 : 유통기한 입력
 
-    long mNow;
-    Date mDate;
     // SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd"); // Log 출력때만 쓰임.
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy.MM.dd"); // Log 출력때만 쓰임.
 
     GregorianCalendar today = new GregorianCalendar();
 
     String category_string;
+    String checkEnd;
+    String tmpEnd;
+    String realOpen;
+    String realEnd;
 
     private int mDdayOpen = 0;
     private int mDdayMake = 0;
@@ -106,6 +109,7 @@ public class CsmtAddActivity extends Activity {
                 product.setText(csmt.name);
                 category.setText(csmt.category);
                 category_string = category.getText().toString();
+                CHECK_BUTTON = 1;
 
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(autoCompleteTextView.getWindowToken(), 0);
@@ -117,54 +121,56 @@ public class CsmtAddActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = getIntent();
-                intent.putExtra("brand", brand.getText().toString());
-                intent.putExtra("product", product.getText().toString());
-                intent.putExtra("category", category.getText().toString());
-                intent.putExtra("name", autoCompleteTextView.getText().toString());
-                intent.putExtra("open", open.getText().toString());
-                intent.putExtra("make", make.getText().toString());
-                intent.putExtra("end", end.getText().toString());
+                if (CHECK_BUTTON >= 2) {
+                    Intent intent = getIntent();
+                    intent.putExtra("brand", brand.getText().toString());
+                    intent.putExtra("product", product.getText().toString());
+                    intent.putExtra("category", category.getText().toString());
+                    intent.putExtra("name", autoCompleteTextView.getText().toString());
+                    intent.putExtra("open", realOpen);
+                    intent.putExtra("make", make.getText().toString());
+                    intent.putExtra("end", realEnd);
 
-                final String search_csmt = autoCompleteTextView.getText().toString();
-                CsmtData csmt = csmtMap.get(search_csmt);
-                intent.putExtra("image", csmt.image);
-                setResult(RESULT_OK, intent);
-                finish();
+                    final String search_csmt = autoCompleteTextView.getText().toString();
+                    CsmtData csmt = csmtMap.get(search_csmt);
+                    intent.putExtra("image", csmt.image);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
+                    Toast.makeText(CsmtAddActivity.this, "필수 채우셈", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
         open.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                showDialog(OPEN_DATE); // 날짜 설정 다이얼로그 띄우기
-                //   mTextView.setText(getTime());
+                if (CHECK_BUTTON == 0) {
+                    Toast.makeText(CsmtAddActivity.this, "제품먼저 선택 하셈", Toast.LENGTH_SHORT).show();
+                } else {
+                    showDialog(OPEN_DATE); // 날짜 설정 다이얼로그 띄우기
+                }
             }
         });
 
         make.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                showDialog(MAKE_DATE); // 날짜 설정 다이얼로그 띄우기
+                if (CHECK_BUTTON == 0 || CHECK_BUTTON == 1) {
+                    Toast.makeText(CsmtAddActivity.this, "개봉일자 먼저 하셈", Toast.LENGTH_SHORT).show();
+                } else
+                    showDialog(MAKE_DATE); // 날짜 설정 다이얼로그 띄우기
             }
         });
 
         end.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                showDialog(END_DATE); // 날짜 설정 다이얼로그 띄우기
+                if (CHECK_BUTTON == 0 || CHECK_BUTTON == 1) {
+                    Toast.makeText(CsmtAddActivity.this, "개봉일자 먼저 하셈", Toast.LENGTH_SHORT).show();
+                } else
+                    showDialog(END_DATE); // 날짜 설정 다이얼로그 띄우기
             }
         });
     }
-
-  /*    private String getTime(){
-        mNow = System.currentTimeMillis();
-        mDate = new Date(mNow);
-
-        mDate.getYear();
-
-        return mFormat.format(mDate);
-    }
-    */
-
 
     // D-day 계산하는 함수
     public int calculateDday(int id, int myear, int mmonth, int mday) {
@@ -172,6 +178,8 @@ public class CsmtAddActivity extends Activity {
             case OPEN_DATE:
                 TextView open = (TextView) findViewById(R.id.openDay);
                 open.setText(myear + "년  " + (mmonth + 1) + "월  " + mday + "일");
+                realOpen = myear + "." + (mmonth+1) + "." + mday;
+                CHECK_BUTTON = 2;
                 // 제조일 기준, 카테고리에 따라 myear, mmonth 에 넣는 수가 달라짐.
                 switch (category_string) {
                     case "Skin":
@@ -289,11 +297,13 @@ public class CsmtAddActivity extends Activity {
             case MAKE_DATE:
                 TextView make = (TextView) findViewById(R.id.makeDay);
                 make.setText(myear + "년  " + (mmonth + 1) + "월  " + mday + "일");
+                CHECK_BUTTON = 3;
                 myear = myear + 3;    // 제조일로부터 3년
                 break;
             case END_DATE:
                 TextView end = (TextView) findViewById(R.id.endDay);
                 end.setText(myear + "년  " + (mmonth + 1) + "월  " + mday + "일");
+                CHECK_BUTTON = 4;
                 break;
         }
 
@@ -304,7 +314,9 @@ public class CsmtAddActivity extends Activity {
             //mmonth -= 1; // 받아온날자에서 -1을 해줘야함.
             ddayCal.set(myear, mmonth, mday);// D-day의 날짜를 입력
             Log.e("테스트", mFormat.format(todaCal.getTime()) + "");
-            Log.e("테스트", mFormat.format(ddayCal.getTime()) + "");
+            Log.e("테스트", mFormat.format(ddayCal.getTime()));
+
+            checkEnd = mFormat.format(ddayCal.getTime());
 
             //->(24 * 60 * 60 * 1000) 24시간 60분 60초 * (ms초->초 변환 1000)
             long today = todaCal.getTimeInMillis() / 86400000;
@@ -319,18 +331,32 @@ public class CsmtAddActivity extends Activity {
     }
 
     public int pickDday() {
-        if (mDdayMake == 0 && mDdayEnd == 0) {
+        if (CHECK_BUTTON == 2) {
             mDdayReal = mDdayOpen;
-        } else if (mDdayEnd == 0) {
-            if (mDdayOpen < mDdayMake)
+            realEnd = checkEnd;
+            tmpEnd = realEnd;
+        } else if (CHECK_BUTTON == 3 && mDdayEnd == 0) {
+            if (mDdayOpen < mDdayMake) {
                 mDdayReal = mDdayOpen;
-            else mDdayReal = mDdayMake;
-        } else {
-            if (mDdayOpen < mDdayEnd)
+                realEnd = tmpEnd;
+            }
+            else {
+                mDdayReal = mDdayMake;
+                realEnd = checkEnd;
+            }
+        } else if (CHECK_BUTTON == 4){
+            if (mDdayOpen < mDdayEnd) {
                 mDdayReal = mDdayOpen;
-            else mDdayReal = mDdayEnd;
+                realEnd = tmpEnd;
+            }
+            else {
+                mDdayReal = mDdayEnd;
+                realEnd = checkEnd;
+            }
         }
+        Toast.makeText(CsmtAddActivity.this, "유효 " + realEnd, Toast.LENGTH_SHORT).show();
         Toast.makeText(CsmtAddActivity.this, "D-" + mDdayReal, Toast.LENGTH_SHORT).show();
+
         return mDdayReal;
     }
 
