@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.sax.EndElementListener;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -32,7 +31,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TooManyListenersException;
 
 public class CsmtAddActivity extends Activity {
     final int OPEN_DATE = 1;
@@ -45,6 +43,8 @@ public class CsmtAddActivity extends Activity {
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd"); // Log 출력때만 쓰임.
 
     GregorianCalendar today = new GregorianCalendar();
+
+    String category_string;
 
     private int mDdayOpen = 0;
     private int mDdayMake = 0;
@@ -105,6 +105,8 @@ public class CsmtAddActivity extends Activity {
                 brand.setText(csmt.brand);
                 product.setText(csmt.name);
                 category.setText(csmt.category);
+                category_string = category.getText().toString();
+
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(autoCompleteTextView.getWindowToken(), 0);
             }
@@ -125,7 +127,7 @@ public class CsmtAddActivity extends Activity {
                 intent.putExtra("end", end.getText().toString());
 
                 final String search_csmt = autoCompleteTextView.getText().toString();
-                CsmtData csmt =  csmtMap.get(search_csmt);
+                CsmtData csmt = csmtMap.get(search_csmt);
                 intent.putExtra("image", csmt.image);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -165,126 +167,124 @@ public class CsmtAddActivity extends Activity {
 
 
     // D-day 계산하는 함수
-    public int countdday(int id, int myear, int mmonth, int mday) {
-        String string = "a";
-        // 제조일 기준, 카테고리에 따라 myear, mmonth 에 넣는 수가 달라짐.
-        switch (string) {
-            case "Skin":
-                myear = myear + 1;  // 제조일로부터 1년
-                break;
-
-            case "Lotion":
-                myear = myear + 1;  // 제조일로부터 1년
-                break;
-
-            case "Cream":
-                myear = myear + 1;  // 제조일로부터 1년
-                break;
-
-            case "Cleansing Form":
-                myear = myear + 1;  // 제조일로부터 1년 6개월
-                mmonth = mmonth + 6;
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-            case "Cleansing Water":
-                myear = myear + 1;  // 제조일로부터 1년 6개월
-                mmonth = mmonth + 6;
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-            case "Cleansing Oil":
-                myear = myear + 1;  // 제조일로부터 1년 6개월
-                mmonth = mmonth + 6;
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-            case "Sunscreen":
-                mmonth = mmonth + 6;  // 제조일로부터 6개월
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-            case "Foundation":
-                myear = myear + 1;  // 제조일로부터 1년
-                break;
-
-            case "Cushion":
-                myear = myear + 1;  // 제조일로부터 1년
-                break;
-
-            case "Concealer":
-                myear = myear + 1;  // 제조일로부터 1년
-                break;
-
-            case "Powder":
-                myear = myear + 3;  // 제조일로부터 3년
-                break;
-
-            case "Lipstick":
-                myear = myear + 1;  // 제조일로부터 1년 6개월
-                mmonth = mmonth + 6;
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-            case "Lip Tint":
-                myear = myear + 1;  // 제조일로부터 1년 6개월
-                mmonth = mmonth + 6;
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-            case "Lip Balm":
-                myear = myear + 1;  // 제조일로부터 1년 6개월
-                mmonth = mmonth + 6;
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-            case "Eyeliner":
-                myear = myear + 1;  // 제조일로부터 1년
-                break;
-
-            case "Mascara":
-                mmonth = mmonth + 6;  // 제조일로부터 6개월
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-            case "Shadow":
-                myear = myear + 1;  // 제조일로부터 1년 6개월
-                mmonth = mmonth + 6;
-                if (mmonth >= 12) {
-                    mmonth = mmonth - 12;
-                    myear = myear + 1;
-                }
-                break;
-
-        }
+    public int calculateDday(int id, int myear, int mmonth, int mday) {
         switch (id) {
             case OPEN_DATE:
                 TextView open = (TextView) findViewById(R.id.openDay);
                 open.setText(myear + "년  " + (mmonth + 1) + "월  " + mday + "일");
+                // 제조일 기준, 카테고리에 따라 myear, mmonth 에 넣는 수가 달라짐.
+                switch (category_string) {
+                    case "Skin":
+                        myear = myear + 1;  // 제조일로부터 1년
+                        break;
+
+                    case "Lotion":
+                        myear = myear + 1;  // 제조일로부터 1년
+                        break;
+
+                    case "Cream":
+                        myear = myear + 1;  // 제조일로부터 1년
+                        break;
+
+                    case "Cleansing Form":
+                        myear = myear + 1;  // 제조일로부터 1년 6개월
+                        mmonth = mmonth + 6;
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+
+                    case "Cleansing Water":
+                        myear = myear + 1;  // 제조일로부터 1년 6개월
+                        mmonth = mmonth + 6;
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+
+                    case "Cleansing Oil":
+                        myear = myear + 1;  // 제조일로부터 1년 6개월
+                        mmonth = mmonth + 6;
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+
+                    case "Sunscreen":
+                        mmonth = mmonth + 6;  // 제조일로부터 6개월
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+
+                    case "Foundation":
+                        myear = myear + 1;  // 제조일로부터 1년
+                        break;
+
+                    case "Cushion":
+                        myear = myear + 1;  // 제조일로부터 1년
+                        break;
+
+                    case "Concealer":
+                        myear = myear + 1;  // 제조일로부터 1년
+                        break;
+
+                    case "Powder":
+                        myear = myear + 3;  // 제조일로부터 3년
+                        break;
+
+                    case "Lipstick":
+                        myear = myear + 1;  // 제조일로부터 1년 6개월
+                        mmonth = mmonth + 6;
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+
+                    case "Lip Tint":
+                        myear = myear + 1;  // 제조일로부터 1년 6개월
+                        mmonth = mmonth + 6;
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+
+                    case "Lip Balm":
+                        myear = myear + 1;  // 제조일로부터 1년 6개월
+                        mmonth = mmonth + 6;
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+
+                    case "Eyeliner":
+                        myear = myear + 1;  // 제조일로부터 1년
+                        break;
+
+                    case "Mascara":
+                        mmonth = mmonth + 6;  // 제조일로부터 6개월
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+
+                    case "Shadow":
+                        myear = myear + 1;  // 제조일로부터 1년 6개월
+                        mmonth = mmonth + 6;
+                        if (mmonth >= 12) {
+                            mmonth = mmonth - 12;
+                            myear = myear + 1;
+                        }
+                        break;
+                }
                 break;
             case MAKE_DATE:
                 TextView make = (TextView) findViewById(R.id.makeDay);
@@ -330,7 +330,7 @@ public class CsmtAddActivity extends Activity {
                 mDdayReal = mDdayOpen;
             else mDdayReal = mDdayEnd;
         }
-        Toast.makeText(CsmtAddActivity.this, "D" + mDdayReal, Toast.LENGTH_SHORT).show();
+        Toast.makeText(CsmtAddActivity.this, "D-" + mDdayReal, Toast.LENGTH_SHORT).show();
         return mDdayReal;
     }
 
@@ -346,7 +346,7 @@ public class CsmtAddActivity extends Activity {
                                 new DatePickerDialog.OnDateSetListener() {
                                     public void onDateSet(DatePicker view,
                                                           int year, int monthOfYear, int dayOfMonth) {
-                                        mDdayOpen = countdday(OPEN_DATE, year, monthOfYear, dayOfMonth);
+                                        mDdayOpen = calculateDday(OPEN_DATE, year, monthOfYear, dayOfMonth);
                                         pickDday();
                                     }
                                 }
@@ -362,7 +362,7 @@ public class CsmtAddActivity extends Activity {
                                     public void onDateSet(DatePicker view,
                                                           int year, int monthOfYear, int dayOfMonth) {
 
-                                        mDdayMake = countdday(MAKE_DATE, year, monthOfYear, dayOfMonth);
+                                        mDdayMake = calculateDday(MAKE_DATE, year, monthOfYear, dayOfMonth);
                                         pickDday();
                                     }
                                 }
@@ -378,7 +378,7 @@ public class CsmtAddActivity extends Activity {
                                     public void onDateSet(DatePicker view,
                                                           int year, int monthOfYear, int dayOfMonth) {
 
-                                        mDdayEnd = countdday(END_DATE, year, monthOfYear, dayOfMonth);
+                                        mDdayEnd = calculateDday(END_DATE, year, monthOfYear, dayOfMonth);
                                         pickDday();
                                     }
                                 }
