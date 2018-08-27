@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainList_Activity extends AppCompatActivity {
 
@@ -33,9 +36,13 @@ public class MainList_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_list_);
-        /*Intent intent = new Intent(getBaseContext(),LoginActivity.class);
-        startActivity(intent);
-*/
+
+        //액션바 설정하기//
+        //액션바 타이틀 변경하기
+        getSupportActionBar().setTitle("화통기한");
+        //홈버튼 표시
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mNavigation = new NavigationAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAdapter(mNavigation);
@@ -49,6 +56,40 @@ public class MainList_Activity extends AppCompatActivity {
         super.onStart();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //or switch문을 이용하면 될듯 하다.
+        if (id == android.R.id.home) {
+            Toast.makeText(this, "홈아이콘 클릭", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (id == R.id.menu_setting) {
+            Toast.makeText(this, "메뉴버튼 클릭", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (id == R.id.menu_logout) {
+            Toast.makeText(this, "로그아웃버튼 클릭", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (id == R.id.menu_about) {
+            Toast.makeText(this, "설정버튼 클릭", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private static class NavigationAdapter extends FragmentPagerAdapter {
         //FragmentPagerAdapter 이전화면을 계속 가지고 있음
@@ -75,7 +116,7 @@ public class MainList_Activity extends AppCompatActivity {
                     return ItemlifeFragment.newInstance(Num);
                 }
                 case 1: {
-                    return rcmdFragmend.newInstance("dd","ss");
+                    return rcmdFragmend.newInstance("dd","ss");//
                 }
                 case 2: {
                     return ItemlifeFragment.newInstance(Num);
