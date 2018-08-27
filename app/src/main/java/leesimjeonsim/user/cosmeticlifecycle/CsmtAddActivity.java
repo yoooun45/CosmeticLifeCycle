@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -45,9 +46,11 @@ public class CsmtAddActivity extends Activity {
         final TextView product = (TextView) findViewById(R.id.product);
         final TextView category = (TextView) findViewById(R.id.category);
 
-        TextView open = (TextView) findViewById(R.id.openDay);
-        TextView make = (TextView) findViewById(R.id.makeDay);
-        TextView end = (TextView) findViewById(R.id.endDay);
+        final TextView open = (TextView) findViewById(R.id.openDay);
+        final TextView make = (TextView) findViewById(R.id.makeDay);
+        final TextView end = (TextView) findViewById(R.id.endDay);
+
+        final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.searchProduct);
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -70,7 +73,6 @@ public class CsmtAddActivity extends Activity {
             }
         });
 
-        final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.searchProduct);
         autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, list));
 
@@ -86,6 +88,29 @@ public class CsmtAddActivity extends Activity {
                 imm.hideSoftInputFromWindow(autoCompleteTextView.getWindowToken(), 0);
             }
         });
+
+
+        Button button = (Button) findViewById(R.id.add_finish_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                intent.putExtra("brand", brand.getText().toString());
+                intent.putExtra("product", product.getText().toString());
+                intent.putExtra("category", category.getText().toString());
+                intent.putExtra("name", autoCompleteTextView.getText().toString());
+                intent.putExtra("open", open.getText().toString());
+                intent.putExtra("make", make.getText().toString());
+                intent.putExtra("end", end.getText().toString());
+
+                final String search_csmt = autoCompleteTextView.getText().toString();
+                CsmtData csmt =  csmtMap.get(search_csmt);
+                intent.putExtra("image", csmt.image);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
 
         open.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
