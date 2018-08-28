@@ -182,17 +182,20 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
         database.getReference().child("users").child(user.getUid()).child("list").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     ItemLifeData lifeData = snapshot.getValue(ItemLifeData.class);
-                    System.out.println(lifeData.title);
+                    System.out.println("lifeData "+lifeData.title);
+                    System.out.print("item "+item.title);
+
                     if (item.equals(lifeData)) {
                         String key = snapshot.getRef().getKey();
                         System.out.println(key);
+                        mDatabase.child("users").child(user.getUid()).child("list").child(key).removeValue();
                         break;
                     }
                 }

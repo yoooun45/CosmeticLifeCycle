@@ -28,4 +28,21 @@ class ItemLifeData {
     public String toString() {
         return content;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ItemLifeData){
+            ItemLifeData lifeDataObj = (ItemLifeData) obj;
+
+            if ((lifeDataObj.title.equals(this.title))
+                    && lifeDataObj.content.equals(this.content)
+                    && lifeDataObj.details.equals(this.details)
+                    //&& lifeDataObj.d_day.equals(this.d_day)
+                    && lifeDataObj.id.equals(this.id)) {
+                return true;
+            }
+            return false;
+        }
+        return super.equals(obj);
+    }
 }
