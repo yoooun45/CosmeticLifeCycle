@@ -219,10 +219,8 @@ public class rcmdFragmend extends Fragment {
                 //사용자 화장품의 디데이 정보확인해서 추천하는것 구현 필요 및 추가 필요
                 for (int i = 0; i < userListITEMS.size(); i++) {
                     //디데이 확인구현하기
-                    setScoreList(i,"Lotion");
-                    setScoreList(i,"Lip");
-                    //카테고리 따라 더 구현할것
-                    //checkCategory(i,"Lotion");
+                    setScoreList(i,userListITEMS.get(i).category);
+                    //카테고리 user의List에 따라 더 구현할것
 
                 }
 

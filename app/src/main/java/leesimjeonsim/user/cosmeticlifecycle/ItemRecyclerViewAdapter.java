@@ -28,7 +28,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     public ItemRecyclerViewAdapter(List<ItemLifeData> items, ItemlifeFragment listener) {
         mValues = items;
         mListener = listener;
-        Log.d("TAG","itema");
     }
 
     @Override
@@ -37,7 +36,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
 
-        Log.d("TAG","itemb");
         return new ViewHolder(view);
     }
 
@@ -60,7 +58,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                 System.out.println("delete click22");
             }
         });
-        Log.d("TAG","itemc");
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,8 +95,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             mDetailsView = (TextView) view.findViewById(R.id.details);
             mD_dayView = (TextView) view.findViewById(R.id.d_day);
             mDeleteView = (Button) view.findViewById(R.id.delete);
-
-            Log.d("TAG","itemd");
         }
 
         @Override
