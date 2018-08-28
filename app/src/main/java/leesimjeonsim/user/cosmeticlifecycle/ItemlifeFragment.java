@@ -178,30 +178,33 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("fragment", "onActivityResult");
-        System.out.println("fragment" + data.getStringExtra("name"));
 
-        ItemLifeData lifeItem = new ItemLifeData();
-        lifeItem.id = data.getStringExtra("image");
-        lifeItem.title = data.getStringExtra("name");
-        String brand = data.getStringExtra("brand");
-        String category = data.getStringExtra("category");
-        lifeItem.content = brand + "-" + category;
-        lifeItem.category = category;
-        String open = data.getStringExtra("open");
-        String end = data.getStringExtra("end");
-        lifeItem.details = open + " ~ " + end;
-        lifeItem.end_day = end;
+        if(resultCode == 1) {
+            System.out.println("fragment" + data.getStringExtra("name"));
+            ItemLifeData lifeItem = new ItemLifeData();
+            lifeItem.id = data.getStringExtra("image");
+            lifeItem.title = data.getStringExtra("name");
+            String brand = data.getStringExtra("brand");
+            String category = data.getStringExtra("category");
+            lifeItem.content = brand + "-" + category;
+            lifeItem.category = category;
+            String open = data.getStringExtra("open");
+            String end = data.getStringExtra("end");
+            lifeItem.details = open + " ~ " + end;
+            lifeItem.end_day = end;
 
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mAuth = FirebaseAuth.getInstance();
 
-        FirebaseUser user = mAuth.getCurrentUser();
-        mDatabase.child("users").child(user.getUid()).child("list").push().setValue(lifeItem);
+            FirebaseUser user = mAuth.getCurrentUser();
+            mDatabase.child("users").child(user.getUid()).child("list").push().setValue(lifeItem);
 
-        //FragmentTransaction ft = getFragmentManager().beginTransaction();
-        //ft.detach(this).attach(this).commit();
+            //FragmentTransaction ft = getFragmentManager().beginTransaction();
+            //ft.detach(this).attach(this).commit();
+        }
         ((MainList_Activity)getActivity()).refresh();
+
     }
 
 

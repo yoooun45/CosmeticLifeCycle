@@ -136,7 +136,7 @@ public class CsmtAddActivity extends Activity {
                     final String search_csmt = autoCompleteTextView.getText().toString();
                     CsmtData csmt = csmtMap.get(search_csmt);
                     intent.putExtra("image", csmt.image);
-                    setResult(RESULT_OK, intent);
+                    setResult(1, intent);
                     finish();
                 } else {
                     Toast.makeText(CsmtAddActivity.this, "필수 채우셈", Toast.LENGTH_SHORT).show();
