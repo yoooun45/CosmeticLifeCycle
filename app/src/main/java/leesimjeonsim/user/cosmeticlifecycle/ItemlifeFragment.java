@@ -202,8 +202,8 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
 
             //FragmentTransaction ft = getFragmentManager().beginTransaction();
             //ft.detach(this).attach(this).commit();
+            ((MainList_Activity)getActivity()).refresh();
         }
-        ((MainList_Activity)getActivity()).refresh();
 
     }
 
@@ -227,6 +227,7 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
                         String key = snapshot.getRef().getKey();
                         System.out.println(key);
                         mDatabase.child("users").child(user.getUid()).child("list").child(key).removeValue();
+                        ((MainList_Activity)getActivity()).refresh();
                         break;
                     }
                 }
