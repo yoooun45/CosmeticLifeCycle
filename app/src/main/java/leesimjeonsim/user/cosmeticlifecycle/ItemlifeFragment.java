@@ -167,7 +167,7 @@ public class ItemlifeFragment extends Fragment {
         lifeItem.content = brand + "-" + category;
         String open = data.getStringExtra("open");
         String end = data.getStringExtra("end");
-        lifeItem.details = open + "~" + end;
+        lifeItem.details = open + " ~ " + end;
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
