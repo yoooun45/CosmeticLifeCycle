@@ -85,7 +85,7 @@ public class MainList_Activity extends AppCompatActivity {
     }
     private static class NavigationAdapter extends FragmentStatePagerAdapter {
         //FragmentPagerAdapter 이전화면을 계속 가지고 있음
-        private static final String[] TITLES = new String[]{"리스트", "추천", "기타"};
+        private static final String[] TITLES = new String[]{"리스트", "추천"};
         public NavigationAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -107,16 +107,13 @@ public class MainList_Activity extends AppCompatActivity {
             // Initialize fragments.
             // Please be sure to pass scroll position to each fragments using setArguments.
             //각 화면으로 넘어가게 해주는 함수
-            final int pattern = position % 3;
+            final int pattern = position % 2;
             switch (pattern) {
                 case 0: {
                     return ItemlifeFragment.newInstance(Num);
                 }
                 case 1: {
                     return rcmdFragmend.newInstance("dd","ss");
-                }
-                case 2: {
-                    return ItemlifeFragment.newInstance(Num);
                 }
             }
 
