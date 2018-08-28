@@ -2,11 +2,13 @@ package leesimjeonsim.user.cosmeticlifecycle;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -78,10 +80,12 @@ public class MainList_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    private static class NavigationAdapter extends FragmentPagerAdapter {
+    public void refresh(){
+        mNavigation.notifyDataSetChanged();
+    }
+    private static class NavigationAdapter extends FragmentStatePagerAdapter {
         //FragmentPagerAdapter 이전화면을 계속 가지고 있음
-        private static final String[] TITLES = new String[]{"리스트", "추천", "기타"};
+        private static final String[] TITLES = new String[]{"리스트", "추천"};
         public NavigationAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -94,20 +98,22 @@ public class MainList_Activity extends AppCompatActivity {
         }
 
         @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
+        }
+
+        @Override
         public Fragment getItem(int position) {
             // Initialize fragments.
             // Please be sure to pass scroll position to each fragments using setArguments.
             //각 화면으로 넘어가게 해주는 함수
-            final int pattern = position % 3;
+            final int pattern = position % 2;
             switch (pattern) {
                 case 0: {
                     return ItemlifeFragment.newInstance(Num);
                 }
                 case 1: {
-                    return rcmdFragmend.newInstance("dd","ss");//
-                }
-                case 2: {
-                    return ItemlifeFragment.newInstance(Num);
+                    return rcmdFragmend.newInstance("dd","ss");
                 }
             }
 

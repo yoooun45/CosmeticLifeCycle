@@ -1,9 +1,11 @@
 package leesimjeonsim.user.cosmeticlifecycle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -271,6 +273,7 @@ public class rcmdFragmend extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
+
 
     public List sortByValue(final HashMap map) {
         List<String> list = new ArrayList();

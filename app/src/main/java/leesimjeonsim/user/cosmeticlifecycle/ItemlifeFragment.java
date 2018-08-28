@@ -172,8 +172,9 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
         FirebaseUser user = mAuth.getCurrentUser();
         mDatabase.child("users").child(user.getUid()).child("list").push().setValue(lifeItem);
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this).attach(this).commit();
+        //FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //ft.detach(this).attach(this).commit();
+        ((MainList_Activity)getActivity()).refresh();
     }
 
 
