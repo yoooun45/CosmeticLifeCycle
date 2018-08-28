@@ -12,16 +12,19 @@ class ItemLifeData {
     public String details;
     public String category;
     public String d_day;
+    public String end_day;
 
     public ItemLifeData() {}
 
-    public ItemLifeData(String id,String title, String content, String details, String category,String d_day) {
+    public ItemLifeData(String id,String title, String content, String details, String category,String d_day, String end_day) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.details = details;
         this.category = category;
         this.d_day = d_day;
+        this.end_day = end_day;
+
     }
 
     @Override
