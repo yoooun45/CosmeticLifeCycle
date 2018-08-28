@@ -22,8 +22,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * A fragment representing a list of Items.
@@ -47,6 +50,9 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
     static final int[] a = { 100,200 };
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy.MM.dd");
+    String checkEnd;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -102,6 +108,25 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
                 ITEMS.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     ItemLifeData lifeData = snapshot.getValue(ItemLifeData.class);
+
+                    StringTokenizer tokenizer = new StringTokenizer(lifeData.end_day);
+                    String syear = tokenizer.nextToken(".");
+                    String smonth = tokenizer.nextToken(".");
+                    String sday = tokenizer.nextToken(".");
+
+                    System.out.println(syear+"."+smonth+"."+sday);
+
+                    int myear = Integer.parseInt(syear);
+                    int mmonth = Integer.parseInt(smonth);
+                    int mday = Integer.parseInt(sday);
+
+                    int Dday = TodoDday(myear, mmonth-1, mday);
+                    if (Dday >= 0) {
+                        lifeData.d_day = "D-"+Dday;
+                    } else {
+                        int absR = Math.abs(Dday);
+                        lifeData.d_day = "D+"+absR;
+                    }
                     ITEMS.add(lifeData);
                 }
                 itemRecyclerViewAdapter.notifyDataSetChanged();
@@ -165,6 +190,8 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
         String open = data.getStringExtra("open");
         String end = data.getStringExtra("end");
         lifeItem.details = open + " ~ " + end;
+        lifeItem.end_day = end;
+
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -183,28 +210,53 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
         database.getReference().child("users").child(user.getUid()).child("list").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     ItemLifeData lifeData = snapshot.getValue(ItemLifeData.class);
-                    System.out.println(lifeData.title);
+                    System.out.println("lifeData "+lifeData.title);
+                    System.out.print("item "+item.title);
+
                     if (item.equals(lifeData)) {
                         String key = snapshot.getRef().getKey();
                         System.out.println(key);
+                        mDatabase.child("users").child(user.getUid()).child("list").child(key).removeValue();
                         break;
                     }
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
         System.out.println(item.content);
+    }
+
+    public int TodoDday (int myear, int mmonth, int mday) {
+        try {
+            Calendar todaCal = Calendar.getInstance(); //오늘날짜 가져오기
+            Calendar ddayCal = Calendar.getInstance(); //오늘날짜를 가져와 변경시킴
+
+            //mmonth -= 1; // 받아온날자에서 -1을 해줘야함.
+            ddayCal.set(myear, mmonth, mday);// D-day의 날짜를 입력
+            Log.e("테스트", mFormat.format(todaCal.getTime()) + "");
+            Log.e("테스트", mFormat.format(ddayCal.getTime()));
+
+    //        checkEnd = mFormat.format(ddayCal.getTime());
+
+            //->(24 * 60 * 60 * 1000) 24시간 60분 60초 * (ms초->초 변환 1000)
+            long today = todaCal.getTimeInMillis() / 86400000;
+            long dday = ddayCal.getTimeInMillis() / 86400000;
+            long count = dday - today; // 오늘 날짜에서 dday 날짜를 빼주게 됩니다.
+
+            return (int) count;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }

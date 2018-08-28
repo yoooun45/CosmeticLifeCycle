@@ -38,10 +38,10 @@ public class CsmtAddActivity extends Activity {
     final int END_DATE = 3;
     int CHECK_BUTTON = 0;   // 1 : 제품입력, 2 : 개봉일자 입력, 3 : 제조일자 입력, 4 : 유통기한 입력
 
+    GregorianCalendar today;
+
     // SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy.MM.dd"); // Log 출력때만 쓰임.
-
-    GregorianCalendar today = new GregorianCalendar();
 
     String category_string;
     String checkEnd;
@@ -62,6 +62,8 @@ public class CsmtAddActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_csmt_add);
+
+        today = new GregorianCalendar();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("csmt");
@@ -128,8 +130,8 @@ public class CsmtAddActivity extends Activity {
                     intent.putExtra("category", category.getText().toString());
                     intent.putExtra("name", autoCompleteTextView.getText().toString());
                     intent.putExtra("open", realOpen);
-                    intent.putExtra("make", make.getText().toString());
                     intent.putExtra("end", realEnd);
+                    intent.putExtra("dday", mDdayReal);
 
                     final String search_csmt = autoCompleteTextView.getText().toString();
                     CsmtData csmt = csmtMap.get(search_csmt);

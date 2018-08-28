@@ -58,7 +58,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                 System.out.println("delete click22");
             }
         });
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        /*holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -67,7 +67,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
-        });
+        });*/
     }
 
     @Override
