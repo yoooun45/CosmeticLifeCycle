@@ -13,9 +13,9 @@ public class UserFeature {
     public Boolean Pore = false;
     public Boolean Elasticity = false;
 
-    public float[] calFinalFeature(float[][] data) {
-        float[] result = new float[]{0, 0, 0, 0, 0, 0};
-        float count=0;
+    public double[] calFinalFeature(double[][] data) {
+        double[] result = new double[]{0, 0, 0, 0, 0, 0};
+        double count=0;
         if (Oily) {
             addFeature(data, result, 0);
             ++count;
@@ -62,7 +62,7 @@ public class UserFeature {
     }
 
     public void addFeature(
-            float[][] data, float[] result, int Num) {
+            double[][] data, double[] result, int Num) {
         for (int i = 0; i < 6; i++) {
             result[i] += data[Num][i];
         }

@@ -20,7 +20,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
     public ItemRecyclerViewAdapter(List<ItemLifeData> items, ItemlifeFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
-        Log.d("TAG","itema");
     }
 
     @Override
@@ -28,8 +27,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         //ViewHolder생성 부분 자세한건 올린 카톡글(재활용 개념)
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
-
-        Log.d("TAG","itemb");
         return new ViewHolder(view);
     }
 
@@ -43,7 +40,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.mD_dayView.setText(mValues.get(position).d_day);
         Glide.with(holder.mImageView.getContext()).load(mValues.get(position).id).into(holder.mImageView);
 
-        Log.d("TAG","itemc");
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,8 +74,6 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             mContentView = (TextView) view.findViewById(R.id.content);
             mDetailsView = (TextView) view.findViewById(R.id.details);
             mD_dayView = (TextView) view.findViewById(R.id.d_day);
-
-            Log.d("TAG","itemd");
         }
 
         @Override
