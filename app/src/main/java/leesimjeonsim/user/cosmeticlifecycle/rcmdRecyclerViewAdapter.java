@@ -13,11 +13,10 @@ import java.util.List;
 public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerViewAdapter.ViewHolder>{
     @NonNull
 
-    private final List<rcmdItemData.rcmdItem> mValues;
+    private final List<rcmdItemData> mValues;
     private final rcmdFragmend.OnListFragmentInteractionListener mListener;
 
-    public rcmdRecyclerViewAdapter(List<rcmdItemData.rcmdItem> items, rcmdFragmend.OnListFragmentInteractionListener listener) {
-        Log.d("TAG","rcmda");
+    public rcmdRecyclerViewAdapter(List<rcmdItemData> items, rcmdFragmend.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -25,7 +24,6 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_rcmditem, parent, false);
-        Log.d("TAG","rcmdb");
         return new ViewHolder(view);
     }
 
@@ -37,13 +35,11 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
         holder.item_name1.setText(mValues.get(position).item_name1);
         holder.item_brand1.setText(mValues.get(position).item_brand1);
 
-        holder.item_name1.setText(mValues.get(position).item_name2);
-        holder.item_brand1.setText(mValues.get(position).item_brand2);
-        Log.d("TAG","rcmd"+mValues.get(position).item_brand2);
+        holder.item_name2.setText(mValues.get(position).item_name2);
+        holder.item_brand2.setText(mValues.get(position).item_brand2);
 
-        holder.item_name1.setText(mValues.get(position).item_name3);
-        holder.item_brand1.setText(mValues.get(position).item_brand3);
-        Log.d("TAG","rcmdc");
+        holder.item_name3.setText(mValues.get(position).item_name3);
+        holder.item_brand3.setText(mValues.get(position).item_brand3);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,10 +67,9 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
         public final TextView item_brand2;
         public final TextView item_name3;
         public final TextView item_brand3;
-        public rcmdItemData.rcmdItem mItem;
+        public rcmdItemData mItem;
         public ViewHolder(@NonNull View view) {
             super(view);
-            Log.d("TAG","rcmdd");
             mView = view;
             name = (TextView) view.findViewById(R.id.name);
             rcmd_dday = (TextView) view.findViewById(R.id.rcmd_dday);

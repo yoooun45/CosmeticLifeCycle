@@ -164,7 +164,7 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
         lifeItem.category = category;
         String open = data.getStringExtra("open");
         String end = data.getStringExtra("end");
-        lifeItem.details = open + "~" + end;
+        lifeItem.details = open + " ~ " + end;
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();

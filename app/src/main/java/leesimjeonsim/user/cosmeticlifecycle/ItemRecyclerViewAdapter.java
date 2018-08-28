@@ -106,7 +106,5 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
-
-
     }
 }

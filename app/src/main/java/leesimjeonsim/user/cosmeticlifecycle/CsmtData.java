@@ -1,7 +1,6 @@
 package leesimjeonsim.user.cosmeticlifecycle;
 
 public class CsmtData {
-    public String CsmtID;
     public String category;
     public String image;
     public String name;
@@ -13,8 +12,8 @@ public class CsmtData {
     public float last;
     public float harmful;
 
-    public float Score(float[] inputdata) {
-        float result;
+    public double Score(double[] inputdata) {
+        double result;
         result = moisture*inputdata[0]
                 +oil*inputdata[1]
                 +smooth*inputdata[2]
