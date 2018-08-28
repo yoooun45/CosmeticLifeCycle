@@ -1,23 +1,31 @@
 package leesimjeonsim.user.cosmeticlifecycle;
 
 import android.content.Context;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<ItemLifeData> mValues;
-    private final ItemlifeFragment.OnListFragmentInteractionListener mListener;
+    private final OnListFragmentInteractionListener mListener;
 
-    public ItemRecyclerViewAdapter(List<ItemLifeData> items, ItemlifeFragment.OnListFragmentInteractionListener listener) {
+    public ItemRecyclerViewAdapter(List<ItemLifeData> items, ItemlifeFragment listener) {
         mValues = items;
         mListener = listener;
         Log.d("TAG","itema");
@@ -43,6 +51,15 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.mD_dayView.setText(mValues.get(position).d_day);
         Glide.with(holder.mImageView.getContext()).load(mValues.get(position).id).into(holder.mImageView);
 
+        holder.mDeleteView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(null != mListener) {
+                    mListener.onListFragmentInteraction(holder.mItem);
+                }
+                System.out.println("delete click22");
+            }
+        });
         Log.d("TAG","itemc");
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +85,8 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public final TextView mContentView;
         public final TextView mDetailsView;
         public final TextView mD_dayView;
+        public Button mDeleteView;
+
         public ItemLifeData mItem;
 
         public ViewHolder(View view) {
@@ -78,6 +97,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             mContentView = (TextView) view.findViewById(R.id.content);
             mDetailsView = (TextView) view.findViewById(R.id.details);
             mD_dayView = (TextView) view.findViewById(R.id.d_day);
+            mDeleteView = (Button) view.findViewById(R.id.delete);
 
             Log.d("TAG","itemd");
         }
@@ -86,5 +106,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+
+
     }
 }

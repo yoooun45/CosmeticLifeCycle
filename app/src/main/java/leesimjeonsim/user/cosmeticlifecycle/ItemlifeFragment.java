@@ -31,7 +31,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ItemlifeFragment extends Fragment {
+public class ItemlifeFragment extends Fragment implements OnListFragmentInteractionListener{
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column_count";
@@ -87,7 +87,7 @@ public class ItemlifeFragment extends Fragment {
         Context context = view.getContext();
         mRecyclerView = view.findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        final ItemRecyclerViewAdapter itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(ITEMS, mListener);
+        final ItemRecyclerViewAdapter itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(ITEMS, this);
         mRecyclerView.setAdapter(itemRecyclerViewAdapter);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -137,6 +137,7 @@ public class ItemlifeFragment extends Fragment {
         mListener = null;
     }
 
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -147,11 +148,6 @@ public class ItemlifeFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
-        //리스트를 선택했을때 일을 여기서 처리할수 있도록 함
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(ItemLifeData item);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -165,6 +161,7 @@ public class ItemlifeFragment extends Fragment {
         String brand = data.getStringExtra("brand");
         String category = data.getStringExtra("category");
         lifeItem.content = brand + "-" + category;
+        lifeItem.category = category;
         String open = data.getStringExtra("open");
         String end = data.getStringExtra("end");
         lifeItem.details = open + "~" + end;
@@ -175,9 +172,38 @@ public class ItemlifeFragment extends Fragment {
         FirebaseUser user = mAuth.getCurrentUser();
         mDatabase.child("users").child(user.getUid()).child("list").push().setValue(lifeItem);
 
-    //    ITEMS.add(lifeItem);
-
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(this).attach(this).commit();
+    }
+
+
+    @Override
+    public void onListFragmentInteraction(final ItemLifeData item) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        database.getReference().child("users").child(user.getUid()).child("list").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    ItemLifeData lifeData = snapshot.getValue(ItemLifeData.class);
+                    System.out.println(lifeData.title);
+                    if (item.equals(lifeData)) {
+                        String key = snapshot.getRef().getKey();
+                        System.out.println(key);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        System.out.println(item.content);
     }
 }

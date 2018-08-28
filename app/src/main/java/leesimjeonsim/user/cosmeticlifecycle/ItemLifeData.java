@@ -10,15 +10,17 @@ class ItemLifeData {
     public String title;
     public String content;
     public String details;
+    public String category;
     public String d_day;
 
     public ItemLifeData() {}
 
-    public ItemLifeData(String id,String title, String content, String details, String d_day) {
+    public ItemLifeData(String id,String title, String content, String details, String category,String d_day) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.details = details;
+        this.category = category;
         this.d_day = d_day;
     }
 
