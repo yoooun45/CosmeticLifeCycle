@@ -6,7 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -32,12 +35,16 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
         holder.mItem = mValues.get(position);
         holder.name.setText(mValues.get(position).name);
         holder.rcmd_dday.setText(mValues.get(position).rcmd_dday);
+
+        Glide.with(holder.imageView1.getContext()).load(mValues.get(position).item_id1).into(holder.imageView1);
         holder.item_name1.setText(mValues.get(position).item_name1);
         holder.item_brand1.setText(mValues.get(position).item_brand1);
 
+        Glide.with(holder.imageView2.getContext()).load(mValues.get(position).item_id2).into(holder.imageView2);
         holder.item_name2.setText(mValues.get(position).item_name2);
         holder.item_brand2.setText(mValues.get(position).item_brand2);
 
+        Glide.with(holder.imageView3.getContext()).load(mValues.get(position).item_id3).into(holder.imageView3);
         holder.item_name3.setText(mValues.get(position).item_name3);
         holder.item_brand3.setText(mValues.get(position).item_brand3);
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -61,10 +68,13 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
         public final View mView;
         public final TextView name;
         public final TextView rcmd_dday;
+        public final ImageView imageView1;
         public final TextView item_name1;
         public final TextView item_brand1;
+        public final ImageView imageView2;
         public final TextView item_name2;
         public final TextView item_brand2;
+        public final ImageView imageView3;
         public final TextView item_name3;
         public final TextView item_brand3;
         public rcmdItemData mItem;
@@ -73,12 +83,15 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
             mView = view;
             name = (TextView) view.findViewById(R.id.name);
             rcmd_dday = (TextView) view.findViewById(R.id.rcmd_dday);
+            imageView1 =(ImageView) view.findViewById(R.id.imageView1);
             item_name1 = (TextView) view.findViewById(R.id.item_name1);
             item_brand1 = (TextView) view.findViewById(R.id. item_brand1);
 
+            imageView2 =(ImageView) view.findViewById(R.id.imageView2);
             item_name2 = (TextView) view.findViewById(R.id.item_name2);
             item_brand2 = (TextView) view.findViewById(R.id. item_brand2);
 
+            imageView3 =(ImageView) view.findViewById(R.id.imageView3);
             item_name3 = (TextView) view.findViewById(R.id.item_name3);
             item_brand3 = (TextView) view.findViewById(R.id. item_brand3);
         }

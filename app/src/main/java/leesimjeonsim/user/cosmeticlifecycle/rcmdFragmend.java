@@ -255,14 +255,17 @@ public class rcmdFragmend extends Fragment {
                 System.out.println("Score :"+n+" "+temp+" "+CsmtITEMS.get(temp).name+ScoreList.get(temp));
                 switch (n) {
                     case 0:
+                        m.item_id1 = CsmtITEMS.get(temp).image;
                         m.item_name1 = CsmtITEMS.get(temp).name;
                         m.item_brand1 = CsmtITEMS.get(temp).brand;
                         break;
                     case 1:
+                        m.item_id2 = CsmtITEMS.get(temp).image;
                         m.item_name2 = CsmtITEMS.get(temp).name;
                         m.item_brand2 = CsmtITEMS.get(temp).brand;
                         break;
                     case 2:
+                        m.item_id3 = CsmtITEMS.get(temp).image;
                         m.item_name3 = CsmtITEMS.get(temp).name;
                         m.item_brand3 = CsmtITEMS.get(temp).brand;
                         break;
