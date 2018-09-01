@@ -39,6 +39,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/LL1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -83,6 +84,7 @@
         android:background="@color/rcmdGray" />
 
     <LinearLayout
+        android:id="@+id/LL2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -126,6 +128,7 @@
         android:background="@color/rcmdGray" />
 
     <LinearLayout
+        android:id="@+id/LL3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

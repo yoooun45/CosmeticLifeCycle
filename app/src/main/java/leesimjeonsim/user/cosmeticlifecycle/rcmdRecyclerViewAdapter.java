@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -56,10 +57,22 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
             }
         });
         */
-        holder.imageView2.setOnClickListener(new View.OnClickListener() {
+        holder.LL1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(holder.mItem.item_name1);
+            }
+        });
+        holder.LL2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println(holder.mItem.item_name2);
+            }
+        });
+        holder.LL3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(holder.mItem.item_name3);
             }
         });
 
@@ -75,12 +88,15 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
         public final View mView;
         public final TextView name;
         public final TextView rcmd_dday;
+        public final LinearLayout LL1;
         public final ImageView imageView1;
         public final TextView item_name1;
         public final TextView item_brand1;
+        public final LinearLayout LL2;
         public final ImageView imageView2;
         public final TextView item_name2;
         public final TextView item_brand2;
+        public final LinearLayout LL3;
         public final ImageView imageView3;
         public final TextView item_name3;
         public final TextView item_brand3;
@@ -90,14 +106,18 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
             mView = view;
             name = (TextView) view.findViewById(R.id.name);
             rcmd_dday = (TextView) view.findViewById(R.id.rcmd_dday);
+
+            LL1 = (LinearLayout) view.findViewById(R.id.LL1);
             imageView1 =(ImageView) view.findViewById(R.id.imageView1);
             item_name1 = (TextView) view.findViewById(R.id.item_name1);
             item_brand1 = (TextView) view.findViewById(R.id. item_brand1);
 
+            LL2 = (LinearLayout) view.findViewById(R.id.LL2);
             imageView2 =(ImageView) view.findViewById(R.id.imageView2);
             item_name2 = (TextView) view.findViewById(R.id.item_name2);
             item_brand2 = (TextView) view.findViewById(R.id. item_brand2);
 
+            LL3 = (LinearLayout) view.findViewById(R.id.LL3);
             imageView3 =(ImageView) view.findViewById(R.id.imageView3);
             item_name3 = (TextView) view.findViewById(R.id.item_name3);
             item_brand3 = (TextView) view.findViewById(R.id. item_brand3);
