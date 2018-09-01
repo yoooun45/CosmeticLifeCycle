@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerViewAdapter.ViewHolder>{
+public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerViewAdapter.ViewHolder> {
     @NonNull
 
     private final List<rcmdItemData> mValues;
@@ -47,22 +47,29 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
         Glide.with(holder.imageView3.getContext()).load(mValues.get(position).item_id3).into(holder.imageView3);
         holder.item_name3.setText(mValues.get(position).item_name3);
         holder.item_brand3.setText(mValues.get(position).item_brand3);
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+
+
+       /* holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
+                    System.out.println(holder.mItem.item_brand1);
             }
         });
+        */
+        holder.imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(holder.mItem.item_name2);
+            }
+        });
+
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
@@ -96,4 +103,5 @@ public class rcmdRecyclerViewAdapter extends RecyclerView.Adapter<rcmdRecyclerVi
             item_brand3 = (TextView) view.findViewById(R.id. item_brand3);
         }
     }
+
 }

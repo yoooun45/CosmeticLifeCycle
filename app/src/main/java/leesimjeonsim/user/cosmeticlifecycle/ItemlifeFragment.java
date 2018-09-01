@@ -163,16 +163,6 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
     }
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -207,6 +197,16 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
 
     }
 
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
 
     @Override
     public void onListFragmentInteraction(final ItemLifeData item) {
@@ -227,6 +227,7 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
                         String key = snapshot.getRef().getKey();
                         System.out.println(key);
                         mDatabase.child("users").child(user.getUid()).child("list").child(key).removeValue();
+                        //한번 삭제후 화면 refresh
                         ((MainList_Activity)getActivity()).refresh();
                         break;
                     }
@@ -239,6 +240,7 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
         });
         System.out.println(item.content);
     }
+
 
     public int TodoDday (int myear, int mmonth, int mday) {
         try {

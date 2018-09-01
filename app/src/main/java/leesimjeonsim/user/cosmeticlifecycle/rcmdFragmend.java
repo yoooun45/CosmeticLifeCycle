@@ -292,6 +292,8 @@ public class rcmdFragmend extends Fragment {
         return list;
     }
 
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -307,5 +309,7 @@ public class rcmdFragmend extends Fragment {
         // TODO: Update argument type and name
 
         void onListFragmentInteraction(rcmdItemData item);
+
     }
+
 }
