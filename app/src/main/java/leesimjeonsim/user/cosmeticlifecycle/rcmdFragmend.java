@@ -22,11 +22,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 
 /**
@@ -156,7 +158,12 @@ public class rcmdFragmend extends Fragment {
                 userListITEMS.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ItemLifeData lifeData = snapshot.getValue(ItemLifeData.class);
-                    userListITEMS.add(lifeData);
+
+                    lifeData.d_day = TodoDday(lifeData.end_day);
+                    int Dday = Integer.parseInt(lifeData.d_day.substring(2));
+                    if(Dday < 60 && lifeData.d_day.contains("D-")) {
+                        userListITEMS.add(lifeData);
+                    }
                 }
 
             }
@@ -248,8 +255,8 @@ public class rcmdFragmend extends Fragment {
             Iterator it = sortByValue(ScoreList).iterator();
             rcmdItemData itemdata = new rcmdItemData();
             int n = 0;
-            itemdata.name=userListITEMS.get(i).title;
-            itemdata.rcmd_dday=userListITEMS.get(i).details;
+            itemdata.name = userListITEMS.get(i).title;
+            itemdata.rcmd_dday = userListITEMS.get(i).d_day;
             while (it.hasNext() && n < 3) {
                 Integer temp = (Integer) it.next();
                 System.out.println("Score :"+n+" "+temp+" "+CsmtITEMS.get(temp).name+ScoreList.get(temp));
@@ -273,6 +280,7 @@ public class rcmdFragmend extends Fragment {
                 n++;
             }
             ITEMS.add(itemdata);
+            listSort();
             adapter.notifyDataSetChanged();
         }
     }
@@ -311,5 +319,83 @@ public class rcmdFragmend extends Fragment {
         void onListFragmentInteraction(rcmdItemData item);
 
     }
+    public String TodoDday (String end_day) {
+        StringTokenizer tokenizer = new StringTokenizer(end_day);
+        String syear = tokenizer.nextToken(".");
+        String smonth = tokenizer.nextToken(".");
+        String sday = tokenizer.nextToken(".");
+        String Dday;
+
+        int myear = Integer.parseInt(syear);
+        int mmonth = Integer.parseInt(smonth)-1;
+        int mday = Integer.parseInt(sday);
+
+        try {
+            Calendar todaCal = Calendar.getInstance(); //오늘날짜 가져오기
+            Calendar ddayCal = Calendar.getInstance(); //오늘날짜를 가져와 변경시킴
+
+            //mmonth -= 1; // 받아온날자에서 -1을 해줘야함.
+            ddayCal.set(myear, mmonth, mday);// D-day의 날짜를 입력
+
+            //        checkEnd = mFormat.format(ddayCal.getTime());
+
+            //->(24 * 60 * 60 * 1000) 24시간 60분 60초 * (ms초->초 변환 1000)
+            long today = todaCal.getTimeInMillis() / 86400000;
+            long dday = ddayCal.getTimeInMillis() / 86400000;
+            long count = dday - today; // 오늘 날짜에서 dday 날짜를 빼주게 됩니다.
+
+            if (count >= 0) {
+                 Dday = "D-"+ count;
+            } else {
+                int absR = (int)Math.abs(count);
+                Dday = "D+"+absR;
+            }
+            return Dday;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    public void listSort() {
+        Collections.sort(ITEMS, new Comparator<rcmdItemData>() {
+            @Override
+            public int compare(rcmdItemData o1, rcmdItemData o2) {
+                int day1 = Integer.parseInt(o1.rcmd_dday.substring(2));
+                int day2 = Integer.parseInt(o2.rcmd_dday.substring(2));
+
+                // 오름 차순
+                if(o1.rcmd_dday.contains("D-") && o2.rcmd_dday.contains("D-")) {
+                    if (day1 > day2) {
+                        return 1;
+                    } else if (day1 < day2) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+                // 내림 차순
+                else if (o1.rcmd_dday.contains("D+") && o2.rcmd_dday.contains("D+")) {
+                    if (day1 < day2) {
+                        return 1;
+                    } else if (day1 > day2) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+                else {
+                    if (o1.rcmd_dday.contains("D-")) {
+                        return 1;
+                    } else if (o1.rcmd_dday.contains("D+")) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        });
+    }
+
 
 }
