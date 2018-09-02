@@ -3,6 +3,7 @@ package leesimjeonsim.user.cosmeticlifecycle;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -128,6 +131,44 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
                         lifeData.d_day = "D+"+absR;
                     }
                     ITEMS.add(lifeData);
+                    Collections.sort(ITEMS, new Comparator<ItemLifeData>() {
+                        @Override
+                        public int compare(ItemLifeData o1, ItemLifeData o2) {
+                            int day1 = Integer.parseInt(o1.d_day.substring(2));
+                            int day2 = Integer.parseInt(o2.d_day.substring(2));
+
+                            // 오름 차순
+                            if(o1.d_day.contains("D-") && o2.d_day.contains("D-")) {
+                                if (day1 > day2) {
+                                    return 1;
+                                } else if (day1 < day2) {
+                                    return -1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                            // 내림 차순
+                            else if (o1.d_day.contains("D+") && o2.d_day.contains("D+")) {
+                                if (day1 < day2) {
+                                    return 1;
+                                } else if (day1 > day2) {
+                                    return -1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                            else {
+                                if (o1.d_day.contains("D-")) {
+                                    return 1;
+                                } else if (o1.d_day.contains("D+")) {
+                                    return -1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        }
+                    });
+
                 }
                 itemRecyclerViewAdapter.notifyDataSetChanged();
             }
