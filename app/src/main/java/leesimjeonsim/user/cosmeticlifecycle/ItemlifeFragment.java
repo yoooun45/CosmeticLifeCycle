@@ -131,43 +131,7 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
                         lifeData.d_day = "D+"+absR;
                     }
                     ITEMS.add(lifeData);
-                    Collections.sort(ITEMS, new Comparator<ItemLifeData>() {
-                        @Override
-                        public int compare(ItemLifeData o1, ItemLifeData o2) {
-                            int day1 = Integer.parseInt(o1.d_day.substring(2));
-                            int day2 = Integer.parseInt(o2.d_day.substring(2));
-
-                            // 오름 차순
-                            if(o1.d_day.contains("D-") && o2.d_day.contains("D-")) {
-                                if (day1 > day2) {
-                                    return 1;
-                                } else if (day1 < day2) {
-                                    return -1;
-                                } else {
-                                    return 0;
-                                }
-                            }
-                            // 내림 차순
-                            else if (o1.d_day.contains("D+") && o2.d_day.contains("D+")) {
-                                if (day1 < day2) {
-                                    return 1;
-                                } else if (day1 > day2) {
-                                    return -1;
-                                } else {
-                                    return 0;
-                                }
-                            }
-                            else {
-                                if (o1.d_day.contains("D-")) {
-                                    return 1;
-                                } else if (o1.d_day.contains("D+")) {
-                                    return -1;
-                                } else {
-                                    return 0;
-                                }
-                            }
-                        }
-                    });
+                    listSort();
 
                 }
                 itemRecyclerViewAdapter.notifyDataSetChanged();
@@ -305,5 +269,45 @@ public class ItemlifeFragment extends Fragment implements OnListFragmentInteract
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public void listSort() {
+        Collections.sort(ITEMS, new Comparator<ItemLifeData>() {
+            @Override
+            public int compare(ItemLifeData o1, ItemLifeData o2) {
+                int day1 = Integer.parseInt(o1.d_day.substring(2));
+                int day2 = Integer.parseInt(o2.d_day.substring(2));
+
+                // 오름 차순
+                if(o1.d_day.contains("D-") && o2.d_day.contains("D-")) {
+                    if (day1 > day2) {
+                        return 1;
+                    } else if (day1 < day2) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+                // 내림 차순
+                else if (o1.d_day.contains("D+") && o2.d_day.contains("D+")) {
+                    if (day1 < day2) {
+                        return 1;
+                    } else if (day1 > day2) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+                else {
+                    if (o1.d_day.contains("D-")) {
+                        return 1;
+                    } else if (o1.d_day.contains("D+")) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        });
     }
 }
