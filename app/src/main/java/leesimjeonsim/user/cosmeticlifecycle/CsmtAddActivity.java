@@ -57,6 +57,8 @@ public class CsmtAddActivity extends Activity {
     private List<String> list = new ArrayList<>();
     private Map<String, CsmtData> csmtMap = new HashMap<>();
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("csmt");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +66,6 @@ public class CsmtAddActivity extends Activity {
         setContentView(R.layout.activity_csmt_add);
 
         today = new GregorianCalendar();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("csmt");
 
         final TextView brand = (TextView) findViewById(R.id.brand);
         final TextView product = (TextView) findViewById(R.id.product);
@@ -78,6 +77,7 @@ public class CsmtAddActivity extends Activity {
 
         final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.searchProduct);
 
+        //setData();
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -417,5 +417,27 @@ public class CsmtAddActivity extends Activity {
         }
 
         return super.onCreateDialog(id);
+    }
+
+    private void setCsmtData(int ab, int harm, int last, int mo, int oil, int sm, String name, String cate, String image) {
+        CsmtData cd = new CsmtData();
+
+        cd.brand = "미샤";
+        cd.name = name;
+        cd.category = cate;
+        cd.image = image;
+
+        cd.absorption = ab;
+        cd.harmful = harm;
+        cd.last = last;
+        cd.moisture = mo;
+        cd.oil = oil;
+        cd.smooth = sm;
+
+        myRef.push().setValue(cd);
+    }
+
+    private void setData () {
+        setCsmtData(7, 4, 7, 1, 1, 5, "슈프림 매트 립루즈 [티아나 블루스]", "Lipstick", "http://file.beautynet.co.kr/updata2/upload/goods/40/77840/resize/blues_300X300_77840_20170831161821952.jpg");
     }
 }
