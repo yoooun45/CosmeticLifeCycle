@@ -1,6 +1,7 @@
 package leesimjeonsim.user.cosmeticlifecycle;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -48,6 +49,14 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
         holder.mDetailsView.setText(mValues.get(position).details);
         holder.mD_dayView.setText(mValues.get(position).d_day);
         Glide.with(holder.mImageView.getContext()).load(mValues.get(position).id).into(holder.mImageView);
+
+        String strDay = (String) holder.mD_dayView.getText();
+        int Dday = Integer.parseInt(strDay.substring(2));
+        if (Dday < 7 || strDay.contains("D+")) {
+            holder.mD_dayView.setTextColor(Color.RED);
+        } else {
+            holder.mD_dayView.setTextColor(Color.BLACK);
+        }
 
         holder.mDeleteView.setOnClickListener(new View.OnClickListener() {
             @Override
