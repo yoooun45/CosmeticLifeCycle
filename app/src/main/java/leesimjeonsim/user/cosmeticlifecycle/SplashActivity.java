@@ -13,12 +13,12 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("state", "launch");
-        startActivity(intent);
         try {
             sleep(30);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        startActivity(intent);
         finish();
     }
 }
