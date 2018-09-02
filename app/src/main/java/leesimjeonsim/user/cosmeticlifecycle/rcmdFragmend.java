@@ -161,7 +161,7 @@ public class rcmdFragmend extends Fragment {
 
                     lifeData.d_day = TodoDday(lifeData.end_day);
                     int Dday = Integer.parseInt(lifeData.d_day.substring(2));
-                    if(Dday < 60 && lifeData.d_day.contains("D-")) {
+                    if(Dday < 60 && lifeData.d_day.contains("D-") || lifeData.d_day.contains("D+")) {
                         userListITEMS.add(lifeData);
                     }
                 }
