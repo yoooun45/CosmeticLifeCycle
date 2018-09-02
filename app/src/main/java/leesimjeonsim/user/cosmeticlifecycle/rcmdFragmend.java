@@ -246,33 +246,33 @@ public class rcmdFragmend extends Fragment {
             }
             //점수에 따라 내림차순으로 정렬
             Iterator it = sortByValue(ScoreList).iterator();
-            rcmdItemData m = new rcmdItemData();
+            rcmdItemData itemdata = new rcmdItemData();
             int n = 0;
-            m.name=userListITEMS.get(i).title;
-            m.rcmd_dday=userListITEMS.get(i).details;
+            itemdata.name=userListITEMS.get(i).title;
+            itemdata.rcmd_dday=userListITEMS.get(i).details;
             while (it.hasNext() && n < 3) {
                 Integer temp = (Integer) it.next();
                 System.out.println("Score :"+n+" "+temp+" "+CsmtITEMS.get(temp).name+ScoreList.get(temp));
                 switch (n) {
                     case 0:
-                        m.item_id1 = CsmtITEMS.get(temp).image;
-                        m.item_name1 = CsmtITEMS.get(temp).name;
-                        m.item_brand1 = CsmtITEMS.get(temp).brand;
+                        itemdata.item_id1 = CsmtITEMS.get(temp).image;
+                        itemdata.item_name1 = CsmtITEMS.get(temp).name;
+                        itemdata.item_brand1 = CsmtITEMS.get(temp).brand;
                         break;
                     case 1:
-                        m.item_id2 = CsmtITEMS.get(temp).image;
-                        m.item_name2 = CsmtITEMS.get(temp).name;
-                        m.item_brand2 = CsmtITEMS.get(temp).brand;
+                        itemdata.item_id2 = CsmtITEMS.get(temp).image;
+                        itemdata.item_name2 = CsmtITEMS.get(temp).name;
+                        itemdata.item_brand2 = CsmtITEMS.get(temp).brand;
                         break;
                     case 2:
-                        m.item_id3 = CsmtITEMS.get(temp).image;
-                        m.item_name3 = CsmtITEMS.get(temp).name;
-                        m.item_brand3 = CsmtITEMS.get(temp).brand;
+                        itemdata.item_id3 = CsmtITEMS.get(temp).image;
+                        itemdata.item_name3 = CsmtITEMS.get(temp).name;
+                        itemdata.item_brand3 = CsmtITEMS.get(temp).brand;
                         break;
                 }
                 n++;
             }
-            ITEMS.add(m);
+            ITEMS.add(itemdata);
             adapter.notifyDataSetChanged();
         }
     }
@@ -292,6 +292,8 @@ public class rcmdFragmend extends Fragment {
         return list;
     }
 
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -307,5 +309,7 @@ public class rcmdFragmend extends Fragment {
         // TODO: Update argument type and name
 
         void onListFragmentInteraction(rcmdItemData item);
+
     }
+
 }

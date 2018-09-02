@@ -21,7 +21,7 @@ public class rcmdItemData {
     public rcmdItemData() {
     }
 
-    public rcmdItemData(String name, String rcmd_dday
+    /*public rcmdItemData(String name, String rcmd_dday
             ,String item_id1, String item_name1, String item_brand1
             ,String item_id2, String item_name2, String item_brand2
             ,String item_id3, String item_name3, String item_brand3) {
@@ -36,7 +36,7 @@ public class rcmdItemData {
         this.item_id3 = item_id3;
         this.item_name3 = item_name3;
         this.item_brand3 = item_brand3;
-    }
+    }*/
 
     @Override
     public String toString() {

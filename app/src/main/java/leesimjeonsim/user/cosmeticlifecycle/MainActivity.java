@@ -36,6 +36,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
@@ -84,8 +88,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mJoinButton.setOnClickListener(this);
         mGoogleButton.setOnClickListener(this);
 
+       // passPushTokenToServer();
     }
 
+    /****** 푸시 메세지 *******
+
+    void passPushTokenToServer() {
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Map<String, Object> map = new HashMap<>();
+        map.put("pushToken", token);
+
+        FirebaseDatabase.getInstance().getReference().child("users").child(uid).updateChildren(map);
+
+
+    }
+    ***** 푸시 메세지 끝 *******/
     @Override
     protected void onStart() {
         super.onStart();
