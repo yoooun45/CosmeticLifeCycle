@@ -3,7 +3,7 @@
 - **Introduction**<br>
     ❣️Member : SYLee,JY,Jj<br>
     🐋 Start Date : 2018. 06. 01<br>
-   <br><br>
+   <br>
    
     **DESIGN**<br>
     1. 안드로이드 어플리케이션 제작, UI/UX 설계
